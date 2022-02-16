@@ -1,0 +1,36 @@
+{
+  "adminToken": "supersecret",
+  "chainConfig": {
+    "1": {
+      "providers": ["https://mainnet.infura.io/v3/e69c20837438489dac864d008d36048b"]
+    },
+    "4": {
+      "providers": ["https://rinkeby.infura.io/v3/e69c20837438489dac864d008d36048b"]
+    },
+    "5": {
+      "providers": ["https://goerli.infura.io/v3/e69c20837438489dac864d008d36048b"]
+    },
+    "97":{
+      "providers":["https://data-seed-prebsc-1-s2.binance.org:8545"]
+    },
+    "80001":{
+      "providers":["https://rpc-mumbai.matic.today"]
+    }
+  },
+  "logLevel": "debug",
+  "network": "testnet",
+  "cleanUpMode": false,
+  "routerContractAddress": "0x9d166026c09edf25bf67770d52a2cb7ddd4008b4",
+  "web3SignerUrl": "https://propwallet-api-beta.amberainsider.com",
+  "swapPools": [
+    {
+      "name": "TEST",
+      "assets": [
+        { "chainId": 4, "assetId": "0x9aC2c46d7AcC21c881154D57c0Dc1c55a3139198" },
+        { "chainId": 5, "assetId": "0x8a1Cad3703E0beAe0e0237369B4fcD04228d1682" },
+        { "chainId": 97, "assetId": "0xd86bcb7d85163fbc81756bb9cc22225d6abccadb" },
+        { "chainId": 80001, "assetId": "0xe71678794fff8846bff855f716b0ce9d9a78e844" }
+      ]
+    }
+  ]
+}
