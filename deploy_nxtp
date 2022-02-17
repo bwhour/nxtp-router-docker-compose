@@ -11,7 +11,7 @@ if [[ -z "$tag" ]]; then
   exit 1
 fi
 
-app_path="/home/connext/nxtp-router-docker-compose"
+app_path="/home/amber/nxtp-router-docker-compose"
 now=$(date +"%Y-%m-%d_%H-%M-%S-%p")
 logfile="$app_path/logs/deploy_$now.log"
 
