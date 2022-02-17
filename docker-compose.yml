@@ -14,26 +14,6 @@ services:
       options:
         max-size: 10m
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
-    depends_on:
-      - "signer"
-    networks:
-      - nxtp
-
-  ################################################################################
-
-  signer:
-    container_name: signer
-    image: "consensys/web3signer:develop"
-    command: "--config-file=/home/node/signer/config.yaml eth1"
-    restart: always
-    volumes:
-      - ./data/signerConfig/config.yaml:/home/node/signer/config.yaml
-      - ./key.yaml:/home/node/signer/keyFiles/key.yaml
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
     networks:
       - nxtp
 
