@@ -21,7 +21,7 @@
   "network": "mainnet",
   "cleanUpMode": false,
   "routerContractAddress": "0x9d166026c09edf25bf67770d52a2cb7ddd4008b4",
-  "web3SignerUrl": "https://propwallet-api-beta.amberainsider.com",
+  "web3SignerUrl": "xxx",
   "swapPools": [
     {
       "name": "TEST",
