@@ -36,74 +36,6 @@ services:
     networks:
       - nxtp
 
-  ################################################################################
-
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:latest
-    restart: always
-    ports:
-      - 9090:9090
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-      - --storage.tsdb.retention.time=45d
-    volumes:
-      - ./data/prometheusConfig/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./data/prometheusConfig/alert.rules.host:/etc/prometheus/alert.rules.host
-      - ./data/prometheusConfig/alert.rules.prod:/etc/prometheus/alert.rules.prod
-      # - ./data/prometheusConfig/alert.rules.router:/etc/prometheus/alert.rules.router
-      - prometheus:/prometheus
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
-
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:latest
-    restart: always
-    ports:
-      - $GRAFANA_EXTERNAL_PORT:3000
-    volumes:
-      - ./data/grafanaConfig/grafana:/etc/grafana
-      - ./data/grafanaConfig/dashboards:/etc/dashboards
-      - grafana:/var/lib/grafana
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
-
-  loki:
-    image: grafana/loki:latest
-    ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/config.yml
-    volumes:
-      - ./data/lokiConfig:/etc/loki
-      - loki:/loki
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
-
-  promtail:
-    image: grafana/promtail:latest
-    volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers
-      - ./data/promtailConfig/config.yml:/etc/promtail/promtail.yml
-    command: -config.file=/etc/promtail/promtail.yml
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
 
   #  alertmanager-discord:
   #    container_name: alertmanager-discord
@@ -118,54 +50,6 @@ services:
   #    networks:
   #      - nxtp
 
-  ################################################################################
-
-  node-exporter:
-    container_name: node-exporter
-    image: prom/node-exporter:v1.1.2
-    restart: always
-    command:
-      - --path.procfs=/host/proc
-      - --path.sysfs=/host/sys
-      - --path.rootfs=/rootfs
-      - --collector.filesystem.ignored-mount-points
-      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns)(/)
-    cap_add:
-      - SYS_TIME
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
-
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:v0.39.0
-    restart: always
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    networks:
-      - nxtp
-
-################################################################################
 
 networks:
   nxtp:
-
-volumes:
-  prometheus:
-  grafana:
-  loki:
-
